@@ -1,8 +1,8 @@
 package com.sso.web.application.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sso.common.entity.WmsUser;
-import com.sso.common.mapper.WmsUserMapper;
+import com.sso.common.entity.SsoUser;
+import com.sso.common.mapper.SsoUserMapper;
 import com.sso.common.vo.UserInfo;
 import com.sso.web.application.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UserInfoInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private WmsUserMapper wmsUserMapper;
+    private SsoUserMapper ssoUserMapper;
     /**
      * 请求执行前执行的，将用户信息放入ThreadLocal
      * @param request
@@ -33,9 +33,9 @@ public class UserInfoInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = TokenUtil.getRequestToken(request);
         //1. 根据token，查询用户信息
-        QueryWrapper<WmsUser> userQueryWrapper=new QueryWrapper<>();
+        QueryWrapper<SsoUser> userQueryWrapper=new QueryWrapper<>();
         userQueryWrapper.eq("token",token);
-        WmsUser user = wmsUserMapper.selectOne(userQueryWrapper);
+        SsoUser user = ssoUserMapper.selectOne(userQueryWrapper);
         UserInfo.setUser(user);
         return true;
     }

@@ -1,10 +1,9 @@
 package com.sso.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sso.common.entity.WmsUser;
-import com.sso.common.mapper.WmsUserMapper;
-import com.sso.service.IWmsUserService;
+import com.sso.common.entity.SsoUser;
+import com.sso.common.mapper.SsoUserMapper;
+import com.sso.service.ISsoUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +20,15 @@ import java.util.UUID;
  * @since 2022-01-06
  */
 @Service
-public class WmsUserServiceImpl extends ServiceImpl<WmsUserMapper, WmsUser> implements IWmsUserService {
+public class SsoUserServiceImpl extends ServiceImpl<SsoUserMapper, SsoUser> implements ISsoUserService {
     @Autowired
-    private WmsUserMapper wmsUserMapper;
+    private SsoUserMapper ssoUserMapper;
 
     //12小时后失效
     private final static int EXPIRE = 12;
 
     @Override
-    public String createToken(WmsUser user) {
+    public String createToken(SsoUser user) {
         //用UUID生成token
         String token = UUID.randomUUID().toString();
         //当前时间
@@ -40,18 +39,18 @@ public class WmsUserServiceImpl extends ServiceImpl<WmsUserMapper, WmsUser> impl
         user.setLoginTime(now);
         user.setExpireTime(expireTime);
         user.setToken(token);
-        wmsUserMapper.updateById(user);
+        ssoUserMapper.updateById(user);
         return token;
     }
 
     @Override
     public void logout(String token) {
-        QueryWrapper<WmsUser> queryWrapper=new QueryWrapper<>();
+        QueryWrapper<SsoUser> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("token",token);
-        WmsUser userEntity = wmsUserMapper.selectOne(queryWrapper);
+        SsoUser userEntity = ssoUserMapper.selectOne(queryWrapper);
         //用UUID生成token
         token = UUID.randomUUID().toString();
         userEntity.setToken(token);
-        wmsUserMapper.updateById(userEntity);
+        ssoUserMapper.updateById(userEntity);
     }
 }

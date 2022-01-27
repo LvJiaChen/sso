@@ -3,11 +3,10 @@ package com.sso.service.impl;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sso.common.constants.SerialNumConstants;
-import com.sso.common.entity.WmsSerialNumber;
-import com.sso.common.mapper.WmsSerialNumberMapper;
-import com.sso.service.IWmsSerialNumberService;
+import com.sso.common.entity.SsoSerialNumber;
+import com.sso.common.mapper.SsoSerialNumberMapper;
+import com.sso.service.ISsoSerialNumberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 2022-01-23
  */
 @Service
-public class WmsSerialNumberServiceImpl extends ServiceImpl<WmsSerialNumberMapper, WmsSerialNumber> implements IWmsSerialNumberService {
+public class SsoSerialNumberServiceImpl extends ServiceImpl<SsoSerialNumberMapper, SsoSerialNumber> implements ISsoSerialNumberService {
 
     /** 格式 */
     private String pattern = "";
@@ -57,7 +56,7 @@ public class WmsSerialNumberServiceImpl extends ServiceImpl<WmsSerialNumberMappe
     /** 数据库存储的当前最大序列号 **/
     long maxSerialInt = 0;
 
-    WmsSerialNumber serialNumber=new WmsSerialNumber();
+    SsoSerialNumber serialNumber=new SsoSerialNumber();
 
     /** 当前序列号是否为个位数自增的模式 **/
     private String isAutoIncrement = "0";
@@ -65,7 +64,7 @@ public class WmsSerialNumberServiceImpl extends ServiceImpl<WmsSerialNumberMappe
     /** 预生成流水号 */
     HashMap<String, List<String>> prepareSerialNumberMap = new HashMap<>();
     @Autowired
-    private WmsSerialNumberMapper wmsSerialNumberMapper;
+    private SsoSerialNumberMapper ssoSerialNumberMapper;
 
     /**
      * 根据模块code生成预数量的序列号存放到Map中
@@ -87,7 +86,7 @@ public class WmsSerialNumberServiceImpl extends ServiceImpl<WmsSerialNumberMappe
                     seed = maxSerialInt = 0;
                     //更新数据，重置maxSerialInt为0
                     serialNumber.setMaxSerial("0");
-                    wmsSerialNumberMapper.updateById(serialNumber);
+                    ssoSerialNumberMapper.updateById(serialNumber);
                 }
                 //动态数字生成
                 String formatSerialNum = format.format(seed);
@@ -102,7 +101,7 @@ public class WmsSerialNumberServiceImpl extends ServiceImpl<WmsSerialNumberMappe
             }
             //更新数据
             serialNumber.setMaxSerial(maxSerialInt + "");
-            wmsSerialNumberMapper.updateById(serialNumber);
+            ssoSerialNumberMapper.updateById(serialNumber);
         }finally{
             lock.unlock();
         }
@@ -128,9 +127,9 @@ public class WmsSerialNumberServiceImpl extends ServiceImpl<WmsSerialNumberMappe
             //预序列号解锁
             prepareLock.unlock();
         }
-        QueryWrapper<WmsSerialNumber> queryWrapper=new QueryWrapper<>();
+        QueryWrapper<SsoSerialNumber> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("module_code",moduleCode);
-        serialNumber = wmsSerialNumberMapper.selectOne(queryWrapper);
+        serialNumber = ssoSerialNumberMapper.selectOne(queryWrapper);
         prepare = Integer.parseInt(serialNumber.getPreMaxNum().trim());//预生成流水号数量
         pattern = serialNumber.getConfigTemplet().trim();//配置模板
         String maxSerial = serialNumber.getMaxSerial().trim(); //存储当前最大值
@@ -158,7 +157,7 @@ public class WmsSerialNumberServiceImpl extends ServiceImpl<WmsSerialNumberMappe
      * @param value 最小值，要求：大于等于零
      * @return 流水号生成器实例
      */
-    public IWmsSerialNumberService setMin(int value) {
+    public ISsoSerialNumberService setMin(int value) {
         lock.lock();
         try {
             this.min = value;
@@ -174,7 +173,7 @@ public class WmsSerialNumberServiceImpl extends ServiceImpl<WmsSerialNumberMappe
      * @param value 最大值，要求：小于等于Long.MAX_VALUE ( 9223372036854775807 )
      * @return 流水号生成器实例
      */
-    public IWmsSerialNumberService setMax(long value) {
+    public ISsoSerialNumberService setMax(long value) {
         lock.lock();
         try {
             this.max = value;
@@ -189,7 +188,7 @@ public class WmsSerialNumberServiceImpl extends ServiceImpl<WmsSerialNumberMappe
      * @param count 预生成数量
      * @return      流水号生成器实例
      */
-    public IWmsSerialNumberService setPrepare(int count) {
+    public ISsoSerialNumberService setPrepare(int count) {
         lock.lock();
         try {
             this.prepare = count;

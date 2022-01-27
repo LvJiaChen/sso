@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sso.common.entity.WmsUser;
 import com.sso.common.vo.TokenVO;
 import com.sso.common.vo.UserInfo;
-import com.sso.service.IWmsUserService;
+import com.sso.service.ISsoUserService;
 import com.sso.web.application.utils.Result;
 import com.sso.web.application.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/wms-user")
 @ResponseBody
-public class WmsUserController {
+public class SsoUserController {
     @Autowired
-    private IWmsUserService userService;
+    private ISsoUserService userService;
 
     /**
      * 登录

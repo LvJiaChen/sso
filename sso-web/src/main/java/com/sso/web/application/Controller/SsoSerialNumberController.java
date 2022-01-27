@@ -15,6 +15,6 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @RequestMapping("/wms-serial-number")
-public class WmsSerialNumberController {
+public class SsoSerialNumberController {
 
 }

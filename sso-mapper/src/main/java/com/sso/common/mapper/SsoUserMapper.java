@@ -1,6 +1,6 @@
 package com.sso.common.mapper;
 
-import com.sso.common.entity.WmsSerialNumber;
+import com.sso.common.entity.SsoUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author lvxiaozuo
- * @since 2022-01-23
+ * @since 2022-01-16
  */
-public interface WmsSerialNumberMapper extends BaseMapper<WmsSerialNumber> {
+public interface SsoUserMapper extends BaseMapper<SsoUser> {
 
 }

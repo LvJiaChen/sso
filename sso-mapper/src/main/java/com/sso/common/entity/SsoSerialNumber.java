@@ -23,9 +23,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("wms_serial_number")
-@ApiModel(value = "WmsSerialNumber对象", description = "")
-public class WmsSerialNumber implements Serializable {
+@TableName("Sso_serial_number")
+@ApiModel(value = "SsoSerialNumber对象", description = "")
+public class SsoSerialNumber implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

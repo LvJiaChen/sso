@@ -1,20 +1,20 @@
 package com.sso.common.vo;
 
-import com.sso.common.entity.WmsUser;
+import com.sso.common.entity.SsoUser;
 
 /**
  * @author lvxiaozuo
  * @date 2022/1/22 14:39
  */
 public class UserInfo {
-    private static ThreadLocal<WmsUser> userInfo = new ThreadLocal();
+    private static ThreadLocal<SsoUser> userInfo = new ThreadLocal();
     public UserInfo() {
     }
-    public static WmsUser getUser() {
-        return (WmsUser)userInfo.get();
+    public static SsoUser getUser() {
+        return (SsoUser)userInfo.get();
     }
 
-    public static void setUser(WmsUser user) {
+    public static void setUser(SsoUser user) {
         userInfo.set(user);
     }
 

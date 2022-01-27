@@ -1,7 +1,7 @@
 package com.sso.service;
 
-import com.sso.common.entity.WmsUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sso.common.entity.SsoUser;
 
 /**
  * <p>
@@ -11,9 +11,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author lvxiaozuo
  * @since 2022-01-06
  */
-public interface IWmsUserService extends IService<WmsUser> {
+public interface ISsoUserService extends IService<SsoUser> {
 
-    String createToken(WmsUser user);
+    String createToken(SsoUser user);
 
     void logout(String token);
 }

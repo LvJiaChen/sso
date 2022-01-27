@@ -3,8 +3,8 @@ package com.sso.web.application.interceptor;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.sso.common.entity.WmsUser;
-import com.sso.service.IWmsUserService;
+import com.sso.common.entity.SsoUser;
+import com.sso.service.ISsoUserService;
 import com.sso.web.application.utils.Result;
 import com.sso.web.application.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class AuthInterceptor implements HandlerInterceptor {
     @Autowired
-    private IWmsUserService iWmsUserService;
+    private ISsoUserService iSsoUserService;
 
     // 目标方法执行之前
     @Override
@@ -39,9 +39,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             return false;
         }
         //1. 根据token，查询用户信息
-        QueryWrapper<WmsUser> userQueryWrapper=new QueryWrapper<>();
+        QueryWrapper<SsoUser> userQueryWrapper=new QueryWrapper<>();
         userQueryWrapper.eq("token",token);
-        WmsUser user = iWmsUserService.getOne(userQueryWrapper);
+        SsoUser user = iSsoUserService.getOne(userQueryWrapper);
         //2. 若用户不存在,
         if (user == null) {
             setReturn(response,401,"用户不存在");

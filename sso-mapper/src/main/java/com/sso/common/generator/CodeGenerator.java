@@ -27,7 +27,7 @@ public class CodeGenerator {
         pathInfo.put(OutputFile.service, "E:\\IdeaProject\\sso\\sso-service\\src\\main\\java\\com\\sso\\service");
         pathInfo.put(OutputFile.entity, "E:\\IdeaProject\\sso\\sso-mapper\\src\\main\\java\\com\\sso\\common\\entity");
         pathInfo.put(OutputFile.mapperXml, "E:\\IdeaProject\\sso\\sso-mapper\\src\\main\\resources\\mapper");
-        FastAutoGenerator.create("jdbc:mysql://localhost:3306/wms", "root", "123456")
+        FastAutoGenerator.create("jdbc:mysql://localhost:3306/sso", "root", "123456")
                 .globalConfig(builder -> {
                     builder.author("lvxiaozuo") // 设置作者
                             .dateType(DateType.ONLY_DATE)
@@ -45,7 +45,7 @@ public class CodeGenerator {
                             .pathInfo(pathInfo);
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("wms_serial_number") // 设置需要生成的表名
+                    builder.addInclude("sso_serial_number") // 设置需要生成的表名
                             //.addTablePrefix("sso_") // 设置过滤表前缀
                             .entityBuilder()
                             .versionColumnName("version")

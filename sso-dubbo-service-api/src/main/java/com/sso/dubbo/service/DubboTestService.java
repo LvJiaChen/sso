@@ -1,9 +1,4 @@
-package com.drean.dubbo.service;
-
-import com.sso.common.entity.WmsMaterial;
-
-import java.util.List;
+package com.sso.dubbo.service;
 
 public interface DubboTestService {
-    List<WmsMaterial> queryMaterialByMaterialNo(String MaterialNo);
 }
