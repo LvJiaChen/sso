@@ -2,7 +2,7 @@ package com.sso.web.application.Controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sso.common.entity.WmsUser;
+import com.sso.common.entity.SsoUser;
 import com.sso.common.vo.TokenVO;
 import com.sso.common.vo.UserInfo;
 import com.sso.service.ISsoUserService;
@@ -10,7 +10,10 @@ import com.sso.web.application.utils.Result;
 import com.sso.web.application.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -41,9 +44,9 @@ public class SsoUserController {
         String userNo = (String) loginMap.get("username");
         String password = (String) loginMap.get("password");
         //用户信息
-        QueryWrapper<WmsUser> wrapper=new QueryWrapper<>();
+        QueryWrapper<SsoUser> wrapper=new QueryWrapper<>();
         wrapper.eq("user_no",userNo);
-        WmsUser user=userService.getOne(wrapper);
+        SsoUser user=userService.getOne(wrapper);
         //账号不存在、密码错误
         if (user == null || !user.getPassword().equals(password)) {
             return Result.build(400, "用户名或密码错误");
