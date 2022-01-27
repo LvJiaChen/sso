@@ -27,7 +27,7 @@ import java.util.Map;
  * @since 2022-01-06
  */
 @Controller
-@RequestMapping("/wms-user")
+@RequestMapping("/sso-user")
 @ResponseBody
 public class SsoUserController {
     @Autowired

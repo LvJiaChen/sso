@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInt
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.sso.web.application.interceptor.AuthInterceptor;
 import com.sso.web.application.interceptor.UserInfoInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -44,7 +43,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 放行路径
         List<String> patterns = new ArrayList();
-        patterns.add("/wms-user/login");
+        patterns.add("/sso-user/login");
         patterns.add("/error");
         registry.addInterceptor(authInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns(patterns);

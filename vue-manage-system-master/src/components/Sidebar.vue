@@ -44,21 +44,6 @@ export default {
                 title: "系统首页",
             },
             {
-                icon: "el-icon-lx-cascades",
-                index: "1",
-                title: "基础数据",
-                subs: [
-                  {
-                    index: "/materialList",
-                    title: "物料管理",
-                  },
-                  {
-                    index: "/warehouseList",
-                    title: "仓库管理",
-                  }
-                ]
-            },
-            {
                 icon: "el-icon-lx-copy",
                 index: "/tabs",
                 title: "tab选项卡",
