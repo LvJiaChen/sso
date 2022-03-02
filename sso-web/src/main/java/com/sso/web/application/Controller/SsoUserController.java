@@ -10,10 +10,7 @@ import com.sso.web.application.utils.Result;
 import com.sso.web.application.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -32,6 +29,11 @@ import java.util.Map;
 public class SsoUserController {
     @Autowired
     private ISsoUserService userService;
+
+    @GetMapping("hello")
+    public String add(){
+        return "hello security";
+    }
 
     /**
      * 登录

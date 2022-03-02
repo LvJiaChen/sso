@@ -44,6 +44,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         // 放行路径
         List<String> patterns = new ArrayList();
         patterns.add("/sso-user/login");
+        patterns.add("/sso-user/hello");
         patterns.add("/error");
         registry.addInterceptor(authInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns(patterns);

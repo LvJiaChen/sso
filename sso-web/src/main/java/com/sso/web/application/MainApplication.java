@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @MapperScan("com.sso.common.mapper")
 @ComponentScan(basePackages = {
+        "com.sso.web.application.filter",
         "com.sso.service",
         "com.sso.web.application.Controller",
         "com.sso.common.handler",
@@ -21,9 +22,6 @@ public class MainApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context= SpringApplication.run(MainApplication.class, args);
         String[] names=context.getBeanDefinitionNames();
-        for (String name : names) {
-            System.out.println(name);
-        }
         System.out.println("********************************************WEB启动完成***************************************");
     }
 

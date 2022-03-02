@@ -45,7 +45,7 @@ public class CodeGenerator {
                             .pathInfo(pathInfo);
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("sso_serial_number") // 设置需要生成的表名
+                    builder.addInclude("sso_permission","sso_user_role","sso_role","sso_role_permission") // 设置需要生成的表名
                             //.addTablePrefix("sso_") // 设置过滤表前缀
                             .entityBuilder()
                             .versionColumnName("version")
@@ -56,9 +56,9 @@ public class CodeGenerator {
                             .addTableFills(new Column("update_time", FieldFill.UPDATE))
                             .enableLombok();
                 })
-                .templateConfig(builder -> {
+                /*.templateConfig(builder -> {
                     builder.disable(TemplateType.CONTROLLER,TemplateType.SERVICE,TemplateType.SERVICEIMPL,TemplateType.MAPPER,TemplateType.XML);
-                }).templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                })*/.templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
     }
 }
